@@ -1,0 +1,138 @@
+<!doctype>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta content="width=device-width, initial-scale=1" name="viewport">
+		<title></title>
+	</head>
+	<body>
+		<table style="font-family: sans-serif;width: 60%;margin: 0 auto;text-align: center;background-color: #ffffff;">
+		  <tr>
+		   <td>
+		    	<h2>Ваши учетные данные для поключения к VPN.</h2>
+			   <h3></h3>
+		   </td>
+		  </tr>
+		  <tr>
+		  	<td style="background-color: #34495e;">
+		  		<ul style="list-style-type: none;padding: 30px;text-align: left;width: 50%;margin: 0 auto;">
+					  <li style="color: #ffffff;padding: 10px;">
+						  Во вложении к письму находится конфигурационный файл.<br/>
+						  В Windows и MacOS после установки клиента необходимо <br/>по аналогии с
+						  OpenVPN импортировать этот файл.
+					  </li>
+				</ul>
+		  	</td>
+		  </tr>
+			<tr>
+				<td><br>
+					<h3>Клиенты для подключения можно скачать по следующим ссылкам:</h3>
+				</td>
+			</tr>
+		  <tr style="display: flex;flex-direction: row;align-items: center;justify-content: center;padding: 30px;">
+		  	
+            {% for name, link in links.items() %}
+		  	<td>
+				<a href="{{ link.href }}"
+					style="display:block;width: 100px;height: 100px;text-decoration: underline;">
+					<img
+						src="cid:{{ name }}_logo"
+						alt="{{ name }}"
+						style="display: block;width: 70px;height: 70px;margin: 0 auto 10px;"
+					/>
+					{{ name }}
+				</a>
+		  	</td>
+            {% endfor %}
+		  </tr>
+		  <tr>
+		  	<td>
+		  		<h3>Для Ubuntu необходимо выполнить следующие действия:</h3>
+		  	</td>
+		  </tr>
+		  <tr>
+		  	<td style="background-color: #34495e;">
+		  		<ul style="list-style-type: none;padding: 30px;text-align: left;width: 50%;margin: 0 auto;">
+					  <li style="color: #ffffff;padding: 10px;">Устанавливаем следующие пакеты:</li>
+		  			<li style="color: #f39c12;padding: 10px 10px 10px 30px;">sudo apt -y install wireguard openresolv</li>
+                    <li style="color: #ffffff;padding: 10px 10px 10px 70px;">
+						  После утстановки пакетов,<br/> необходимо положить
+						  конфиг файл wg-{{ user_name }}.conf<br/> в папку /etc/wireguard/</li>
+
+					<li style="color: #f39c12;padding: 10px 10px 10px 30px;">sudo cp ~/Downloads/wg-{{ user_name }}.conf /etc/wireguard/</li>
+					<li style="color: #ffffff;padding: 10px 10px 10px 70px;">если у Вас русская локаль, то:</li>
+					<li style="color: #f39c12;padding: 10px 10px 10px 30px;">sudo cp ~/Загрузки/wg-{{ user_name }}.conf /etc/wireguard/</li>
+					<li style="color: #ffffff;padding: 10px 10px 10px 70px;">и выполнить ледующие команды:</li>
+		  			<li style="color: #f39c12;padding: 10px 10px 10px 30px;">sudo systemctl start wg-quick@wg-{{ user_name }}.service</li>
+		  			<li style="color: #f39c12;padding: 10px 10px 10px 30px;">sudo systemctl enable wg-quick@wg-{{ user_name }}.service</li>
+		  		</ul>
+		  	</td>
+		  </tr>
+			<tr>
+				<td><br>
+					<h2>Android или IOS</h2>
+		  		</td>
+			</tr>
+			<tr>
+				<td style="background-color: #34495e;">
+					<ul style="list-style-type: none;padding: 30px;text-align: left;width: 50%;margin: 0 auto;">
+						<li style="color: #ffffff;padding: 10px;">
+							Если Вы планируете использовать VPN на мобильном устройстве,<br/>
+							то установите клиента, запустите приложение<br/>
+							и отсканируйте этот QR код.
+						</li>
+						<li style="color: #f39c12;font-size:15px;text-align: center;">(ссылки на приложения в маркетах в начале письма)</li>
+
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<td><br><br>
+				<a>
+					<img
+						src="cid:QR"
+						alt="если не видно QR, то он продублирован во вложении"
+						style="display: block;width:500px;height: 500px;margin: 0 auto 10px;"
+					/>
+				</a>
+		  	</td>
+			</tr>
+			<tr>
+				<td style="background-color: #CD5C5C;">
+					<ul style="list-style-type: none;padding: 1px;text-align: left;width: 50%;margin: 0 auto;">
+						<li style="color: #000000;padding: 10px;"><h3>Одновременная работа этого нового VPN сразу с нескольких устройств не предусмотрена!</h3></li>
+					</ul>
+		  		</td>
+			</tr>
+			<tr>
+				<td><br>
+					<h2>Приимущества новго VPN перед старым:</h2>
+				</td>
+			</tr>
+			<tr>
+				<td style="background-color: #B0E0E6;">
+					<ul style="list-style-type: none;padding: 30px;text-align: left;width: 50%;margin: 0 auto;">
+					<li style="color: #34495e;padding: 10px;">
+						Важной особенностью данного VPN является:
+						<p>стабильная работа</p>
+						<p>высокая скорость работы</p>
+						автоматическое переподключение.
+						<h4>Так-же выжным изменением является то,</h4>
+						<h4>что этот VPN работает только на наши внутренние ресурсы!</h4>
+						<h4>Тоесть Youtube или GoogleMeet, будут работать в обход VPN</h4>
+					</li>
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<h2><a href="{{ how_to_src }}">Вопросы задаём тут</a></h2><br><br><br>
+
+				</td>
+			</tr>
+		 </table>
+	</body>
+</html>
+            
+
+		
