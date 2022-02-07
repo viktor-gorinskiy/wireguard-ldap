@@ -51,8 +51,16 @@ pip install pillow
 pip install qrcode
 ```
 
+#### jinja2
+Для работы удобства работы с шаблоном для email я использовал jinja2
+```
+pip install jinja2
+```
+
 Для запуска я использую две задачи в Cron, первая раз в 5 минут запускает сервис.
+
 Вторая используется как напоминалка и "спамит" каждый понедельник в 15:00.
+
 Это не будет работать в venv.
 ```
 */5 * * * * cd /opt/wireguard-ldap/ && /usr/bin/python3 /opt/wireguard-ldap/main.py
