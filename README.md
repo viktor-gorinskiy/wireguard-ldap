@@ -1,11 +1,8 @@
 
 # Wireguard LDAP or Active Directory
 
-С момощью этого репозитория можно реализовать выдачу VPN через LDAP или Active Directory
+С момощью этого сервиса можно реализовать выдачу VPN через LDAP или Active Directory
 
-* Try the Clarifai demo at: https://clarifai.com/demo
-* Sign up for a free account at: https://portal.clarifai.com/signup
-* Read the documentation at: https://docs.clarifai.com/
 
 ## Installation
 
@@ -47,7 +44,7 @@ yum install zlib-devel
 ```
 Ставим pillow
 ```
-pip installpillow
+pip install pillow
 ```
 #### qrcode
 ```
