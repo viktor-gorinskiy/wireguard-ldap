@@ -1,0 +1,16 @@
+# Folders
+_obj
+_test
+__pycache__
+
+# IDE
+.idea
+.sublime-project
+*.sublime-workspace
+.vscode
+# internal documents
+
+Represent MVP Vision + Wireframes.pdf
+
+# sc directory
+.env
