@@ -1,14 +1,17 @@
 
 ### ------------ LDAP ------------ ###
 
-ldap = False                    #   Использовать лдап для поиска пользователей?
+ldap = True                    #   Использовать лдап для поиска пользователей?
 ldap_url = 'ldap://ldap.domain.com:389'
 ldap_bind_user = 'admin_vpn'
 ldap_bind_pass = 'up9oJoXerohtaishoroer2Ijeugir4'
 ldap_basedn = 'dc=domain,dc=loc'
-ldap_filter = '(&(objectCategory=person)(objectClass=user)(!(UserAccountControl:1.2.840.113556.1.4.803:=2))(memberOf=CN=vpn-users,OU=groups,OU=DOMAIN,DC=domain,DC=loc))'
-# ldap_filter = '(&(objectCategory=person)(objectClass=user)(!(UserAccountControl:1.2.840.113556.1.4.803:=2)))'
-ldap_attrlist =  ["sAMAccountName", "mail"]
+ldap_filter = '(&(objectclass=inetorgperson)(memberOf=cn=vpn-users,cn=groups,cn=accounts,dc=sfxdx,dc=lan))' # Freeipa
+ldap_filter = '(&(objectCategory=person)(objectClass=user)(!(UserAccountControl:1.2.840.113556.1.4.803:=2))(memberOf=CN=vpn-users,OU=groups,OU=DOMAIN,DC=domain,DC=loc))'   # AD
+ldap_attrlist = {
+    'user_name': 'uid',
+    'user_contact': 'mail'
+    }
 
 
 ### ------------ Wiereguard ------ ###

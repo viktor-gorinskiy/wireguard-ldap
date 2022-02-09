@@ -76,23 +76,25 @@ def get_users_ldap():
     scope = ldap.SCOPE_SUBTREE
 
     filterexp = ldap_filter
-    # attrlist = ["sAMAccountName", "mail", "objectClass"]
-    attrlist = ldap_attrlist
+    attrlist = list(config.ldap_attrlist.values())
     results = ad.search_s(basedn, scope, filterexp, attrlist)
+    print(results)
+    # import sys
+    # sys.exit(0)
 
 
     users_ldap = {}
     for result in results:
         if result[0] != None:
             if len(result[1]) > 1:
-                sAMAccountName = result[1]['sAMAccountName'][0].decode('utf-8')
-                contact = result[1]["mail"][0].decode('utf-8')
+                ldap_user_name_attr = result[1][config.ldap_attrlist['user_name']][0].decode('utf-8')
+                contact = result[1][config.ldap_attrlist['user_contact']][0].decode('utf-8')
 
-                users_ldap[sAMAccountName] = {}
-                users_ldap[sAMAccountName]["contact"] = contact
+                users_ldap[ldap_user_name_attr] = {}
+                users_ldap[ldap_user_name_attr]["contact"] = contact
 
     return users_ldap
-
+    
 # Читает из файла строки и переделывает возвращает словарь
 def file_to_dict():
     types = ['peer_pub_key', 'peer_private_key', 'name', 'contact', 'mail_status', 'ip', 'endpoint', 'handshake' ]
@@ -436,7 +438,7 @@ def update_status():
 
 
 #
-# print(get_users_ldap())
+print(get_users_ldap())
 #
 # print(ldap.__version__)
 # print(wireguard(action='status'))

@@ -23,10 +23,15 @@ source .env/bin/activate
 ### Теперь установим нужные зависимости:
 
 #### python-ldap
-У меня всё работает на CentOS 7 и для установки python-ldap требуются следующие пакеты:
+##### завистимости
+Для CentOS 7:
 ```
 yum groupinstall "Development tools"
 yum install openldap-devel python-devel
+```
+Для Ubuntu:
+```
+sudo apt-get install -y python-dev libldap2-dev libsasl2-dev libssl-dev
 ```
 Теперь можно ставить python-ldap
 
@@ -36,12 +41,13 @@ pip install python-ldap
 
 #### pillow
 
-Для pillow так-же надо установить зависимости:
+Для CentOS 7 требуются зависимости:
 
 ```
 yum install libjpeg-turbo-devel
 yum install zlib-devel
 ```
+Для Ubuntu не требуются зависимости
 Ставим pillow
 ```
 pip install pillow
