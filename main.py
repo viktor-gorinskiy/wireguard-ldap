@@ -17,23 +17,19 @@ if config.create_server_config:
     if not os.path.exists(wireguard_server_config):
         with open(wireguard_server_config, 'w') as file_handler:
             server_keys=wg.wireguard(action='keys') # генерируем ключи для сервера Wireguard
-            server_private_key = server_keys[0]     # Это у нас приватный ключ
-            server_public_key = server_keys[1]      # Это публичный ключ, он так-же добавляется в конфиг, но он там не используется
-                                                    # его необходимо добавить в конфиг этого серивиса т.е. config.py ==> publicKey
+            server_private_key = server_keys[0]     # Это приватный ключ
+            server_public_key = server_keys[1]      # Это публичный ключ
+
             wireguard_server_config_strings = (
                 f'[Interface]\n'
                 f'Address = {config.server_ip}\n'
                 f'ListenPort = {config.server_port}\n'
                 f'PrivateKey = {server_private_key}\n'
-                f'#PublicKey = {server_public_key}\t copy to config.py\n'
-                
             )
             file_handler.write(wireguard_server_config_strings)
             current_patch = os.path.dirname(os.path.realpath(__file__))
             msg = (
-                f'\nPlease run the following command to add the server\'s public key to this service:\n'
-                f'\tsed -i "s/add_in_wireguard_server/{server_public_key}/" {current_patch}/config.py\n'
-                f'And run wireguard server:\n'
+                f'Please run wireguard server:\n'
                 f'\tsystemctl start wg-quick@{config.server}.service\n\n'
                 )
             print(msg)

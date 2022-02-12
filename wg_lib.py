@@ -8,6 +8,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
 from email.mime.image import MIMEImage
 import os
+import sys
 import qrcode
 import tempfile
 from jinja2 import Environment, select_autoescape, FileSystemLoader
@@ -29,6 +30,11 @@ ldap_attrlist =  config.ldap_attrlist
 # Ищет новый IP адрес сортируя имеющиеся, добавляет IP в промежутках
 def new_ip():
     ips = wireguard(action='info',who='ips')
+    print('ips', ips)
+    if not ips:
+        ips = []
+        ips.append(config.server_ip.split('/')[0])
+
     ips_tmp = []
     for ip in ips:
         ips_tmp.append(ip)
@@ -46,6 +52,7 @@ def new_ip():
         else:
             return tmp_ip
     return ip + 1
+    # return False
 
 # Ищет IP адрес в файле по индефикатору пользователя
 def get_ip_in_file(peer_pub_key):
@@ -69,7 +76,12 @@ def get_ip(public_key):
 def get_users_ldap():
     ad = ldap.initialize(ldap_url)
     ad.set_option(ldap.OPT_REFERRALS, 0)
-    ad.simple_bind_s(ldap_bind_user, ldap_bind_pass)
+    try:
+        ad.simple_bind_s(ldap_bind_user, ldap_bind_pass)
+    except ldap.SERVER_DOWN as error:
+        print('LDAP SERVER DOWN:')
+        print(error)
+        sys.exit(1)
 
 
     basedn = ldap_basedn
@@ -78,7 +90,7 @@ def get_users_ldap():
     filterexp = ldap_filter
     attrlist = list(config.ldap_attrlist.values())
     results = ad.search_s(basedn, scope, filterexp, attrlist)
-    print(results)
+    # print(results)
     # import sys
     # sys.exit(0)
 
@@ -208,13 +220,14 @@ def add_new_user_in_file(name, contact ):
         return True
 
 def get_config(peer_private_key, peer_ip, peer_name):
+    publicKey = wireguard(action='get_server_publicKey')
     result_config =  (
         f'[Interface]\n'
         f'Address = {peer_ip}\n'
         f'PrivateKey =  {peer_private_key}\n'
         f'DNS =  {config.DNS}\n\n'
         f'[Peer]\n'
-        f'PublicKey = {config.publicKey}\n'
+        f'PublicKey = {publicKey}\n'
         f'#PresharedKey =\n'
         f'AllowedIPs = {config.AllowedIPs}\n'
         f'Endpoint = {config.Endpoint}:{config.server_port}\n'
@@ -290,6 +303,11 @@ def wireguard(action='', public_key='', ip='', who=''):
             return ips
         if who == 'peers':
             return peers
+    
+    if action == 'get_server_publicKey':
+        cmd = f"""wg show '{server}'""" + "| awk '/public key:/{print $3}'"
+        result_get_server_publicKey = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT).communicate()[0].decode('utf-8').split('\n')[0]
+        return result_get_server_publicKey
 
     if action == 'status':
         cmd = f"""wg show '{server}'"""
@@ -438,7 +456,8 @@ def update_status():
 
 
 #
-print(get_users_ldap())
+# print(get_users_ldap())
 #
 # print(ldap.__version__)
-# print(wireguard(action='status'))
+# print(wireguard(action='get_server_publicKey'))
+print(new_ip())

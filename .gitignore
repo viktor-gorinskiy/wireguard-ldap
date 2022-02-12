@@ -14,4 +14,5 @@ Represent MVP Vision + Wireframes.pdf
 
 # sc directory
 .env
+config.py
 test.py

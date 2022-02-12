@@ -8,14 +8,38 @@
 
 Считаем, что wireguard у Вас уже установлен, если нет, то [устанавливаем](https://www.wireguard.com/install/).
 
-Для начала скопируем себе репозиторий и перейдем в папку:
 
 ```
 cd /opt/
 git@github.com:viktor-gorinskiy/wireguard-ldap.git
 cd wireguard-ldap
+mv example.config.py config.py
+vim config.py
 ```
-Следующие команды нужны для virtualenv (venv)
+Последняя команда откроет конфиг файл на редактирование в vim
+ 
+<details><summary>Как выйти из vim без сохранения:</summary>
+   Esc
+   Esc
+   Esc
+   :
+   !
+   q
+   Enter
+</details>
+<details><summary>Как сохранить и выйти из vim:</summary>
+   Esc
+   Esc
+   Esc
+   :
+   w
+   q
+   Enter
+</details><br>
+
+
+Следующие команды нужны для virtualenv (venv)  
+
 ```
 python3 -m venv .env
 source .env/bin/activate
@@ -41,13 +65,16 @@ pip install python-ldap
 
 #### pillow
 
-Для CentOS 7 требуются зависимости:
+Зависимости для CentOS 7 :
 
 ```
 yum install libjpeg-turbo-devel
 yum install zlib-devel
 ```
-Для Ubuntu не требуются зависимости
+Зависимости для Ubuntu:
+```
+sudo apt-get install python3-dev python3-pip python3-venv python3-wheel -y
+```
 Ставим pillow
 ```
 pip install pillow
