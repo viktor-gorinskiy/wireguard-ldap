@@ -11,7 +11,7 @@
 
 ```
 cd /opt/
-git@github.com:viktor-gorinskiy/wireguard-ldap.git
+git clone https://github.com/viktor-gorinskiy/wireguard-ldap.git
 cd wireguard-ldap
 mv example.config.py config.py
 vim config.py

@@ -460,4 +460,4 @@ def update_status():
 #
 # print(ldap.__version__)
 # print(wireguard(action='get_server_publicKey'))
-print(new_ip())
+# print(new_ip())
