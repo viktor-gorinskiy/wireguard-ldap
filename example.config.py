@@ -37,7 +37,6 @@ DNS = '8.8.8.8'
 peer_ip_mask = 32
 AllowedIPs = '10.10.0.0/18, 192.168.0.0/16'
 Endpoint = 'vpn.domain.com'
-publicKey = 'add_in_wireguard_server'
 # preshared_key = ''
 
 ### ------- Email ------ ###

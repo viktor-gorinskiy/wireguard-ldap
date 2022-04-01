@@ -25,14 +25,14 @@ ldap_attrlist = {
 create_server_config = True     # Создавть конфиг wireguard сервера, если его нет?
 start_server = True
     ## ---- Patches ---- ##
-patch_wireguard = '/etc/wireguard'
-peer_folder_config = '/etc/wireguard/peers'
-peers_file_name = '/etc/wireguard/peers.txt'
+patch_wireguard = '/tmp'
+peer_folder_config = '/tmp/peers'
+peers_file_name = '/tmp/peers.txt'
 
     ## ---- server ---- ##
 server = 'wg-server_1'
 server_port = '51810'
-server_ip = '10.10.6.1/24'
+server_ip = '10.10.9.1/24'
 DNS = '8.8.8.8'
 peer_ip_mask = 32
 AllowedIPs = '10.10.0.0/18, 192.168.0.0/16'

@@ -29,7 +29,7 @@ ldap_attrlist =  config.ldap_attrlist
 
 # Ищет новый IP адрес сортируя имеющиеся, добавляет IP в промежутках
 def new_ip():
-    ips = wireguard(action='info',who='ips')
+    ips = wireguard(action='info', who='ips')
     print('ips', ips)
     if not ips:
         ips = []
@@ -52,7 +52,7 @@ def new_ip():
         else:
             return tmp_ip
     return ip + 1
-    # return False
+
 
 # Ищет IP адрес в файле по индефикатору пользователя
 def get_ip_in_file(peer_pub_key):
@@ -247,7 +247,6 @@ def gen_peer_config(peer_private_key, peer_ip, peer_name):
         os.mkdir(config.peer_folder_config)
         with open(f_peer_name, 'w') as file_handler:
             file_handler.write(str(config_peer))
-
 
     qr = qrcode.QRCode()
     qr.add_data(config_peer)
